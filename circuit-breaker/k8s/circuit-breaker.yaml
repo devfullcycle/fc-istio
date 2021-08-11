@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: circuit-breaker-servicex
+spec:
+  host: servicex-service.default.svc.cluster.local
+  trafficPolicy:
+    outlierDetection:
+      # consecutive5xxErrors: 20
+      consecutiveGatewayErrors: 10
+      interval: 20s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 100
